@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include_once __DIR__ . './functions.php';
 
 // ricevo la lunghezza della password da generare e la trasformo in un numero
@@ -7,6 +8,8 @@ $lunghezzaPassword = (int)$lunghezzaPassword;
 
 $_SESSION['lunghezzaPassword'] = $lunghezzaPassword;
 
+$nuovaPassword = generaPassword($lunghezzaPassword) ?? '';
+$_SESSION['nuovaPassword'] = $nuovaPassword;
 ?>
 
 
@@ -31,8 +34,12 @@ $_SESSION['lunghezzaPassword'] = $lunghezzaPassword;
       <button>Genera</button>
     </form>
 
-    <h2>La tua nuova password è: </h2>
-    <span><?= generaPassword($lunghezzaPassword) ?></span>
+    <form action="./mostrapassword.php">
+      <h2>La tua nuova password è: </h2>
+      <input type="password" value="<?= $nuovaPassword ?>">
+      <span class="d-block">Visualizza la password in modo sicuro.</span>
+      <button>Visualizza</button>
+    </form>
   </div>
 </body>
 </html>

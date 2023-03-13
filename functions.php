@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 function generaPassword($lunghezzaPassword) {
   // verifico che la lunghezza scelta della password corrisponda ai criteri necessari
   if ($lunghezzaPassword < 4 || $lunghezzaPassword > 10) {
