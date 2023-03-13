@@ -8,6 +8,16 @@ $lunghezzaPassword = (int)$lunghezzaPassword;
 
 $_SESSION['lunghezzaPassword'] = $lunghezzaPassword;
 
+// controllo i check dell'utente
+$num = $_GET["num"] ?? '';
+$low = $_GET["low"] ?? '';
+$up = $_GET["up"] ?? '';
+$sym = $_GET["sym"] ?? '';
+$_SESSION['num'] = $num;
+$_SESSION['low'] = $low;
+$_SESSION['up'] = $up;
+$_SESSION['sym'] = $sym;
+
 $nuovaPassword = generaPassword($lunghezzaPassword) ?? '';
 $_SESSION['nuovaPassword'] = $nuovaPassword;
 ?>
@@ -31,6 +41,15 @@ $_SESSION['nuovaPassword'] = $nuovaPassword;
     <form action="" method="GET">
       <label class="d-block" for="lunghezzaPassword">Scegli quanti caratteri deve avere la tua nuova password.</label>
       <input  name="lunghezzaPassword" id="lunghezzaPassword"  type="number" min="4" max="10">
+      <h2>Quali caratteri devo usare?</h2>
+      <input type="checkbox" id="num" name="num" value="num">
+      <label for="num"> Numbers </label>
+      <input type="checkbox" id="low" name="low" value="low">
+      <label for="low"> Lower Case </label>
+      <input type="checkbox" id="up" name="up" value="up">
+      <label for="up"> Upper Case </label>
+      <input type="checkbox" id="sym" name="sym" value="sym">
+      <label for="sym"> Symbols </label>
       <button>Genera</button>
     </form>
 

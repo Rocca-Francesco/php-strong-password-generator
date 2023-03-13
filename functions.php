@@ -6,7 +6,7 @@ function generaPassword($lunghezzaPassword) {
     return false;
   } else {
     // creo la mia variabile password e la genero
-    $nuovaPassword = null;
+    $nuovaPassword = '';
     
     // definisco i caratteri possibili e le lunghezze delle stringhe prese in considerazione, le metto fuori per alleggerire il processo del 'for'
     $permittedNum = '0123456789'; // 0
@@ -19,24 +19,34 @@ function generaPassword($lunghezzaPassword) {
     $symbolsLength = strlen($permittedSymbols);
 
     for ($i = 1; $i <= $lunghezzaPassword; $i++) {
-      // scelgo il gruppo da cui devo generare
-      $chooseGroupPermitted = rand(0, 3);
+      while (strlen($nuovaPassword)<$lunghezzaPassword){
       
-      // per ogni gruppo, genero un numero in base alla lunghezza, scelgo il valore dalla lista in base al numero generato e lo aggiungo alla password
-      if ($chooseGroupPermitted == 0) {
-        $newRandom = rand(0, $numLength);
-        $nuovaPassword .= substr($permittedNum, $newRandom, 1);
-      } else if ($chooseGroupPermitted == 1) {
-        $newRandom = rand(0, $lowerCaseLength);
-        $nuovaPassword .= substr($permittedLowerCase, $newRandom, 1);
-      } else if ($chooseGroupPermitted == 2) {
-        $newRandom = rand(0, $upperCaseLength);
-        $nuovaPassword .= substr($permittedUpperCase, $newRandom, 1);
-      }  else if ($chooseGroupPermitted == 3) {
-        $newRandom = rand(0, $symbolsLength);
-        $nuovaPassword .= substr($permittedSymbols, $newRandom, 1);
+        // scelgo il gruppo da cui devo generare
+        $chooseGroupPermitted = rand(0, 3);
+        
+        // per ogni gruppo, genero un numero in base alla lunghezza, scelgo il valore dalla lista in base al numero generato e lo aggiungo alla password
+        if ($chooseGroupPermitted == 0) {
+          if ($_SESSION['num']) {
+            $newRandom = rand(0, $numLength);
+            $nuovaPassword .= substr($permittedNum, $newRandom, 1);
+          };
+        } else if ($chooseGroupPermitted == 1) {
+          if ($_SESSION['low']) {
+          $newRandom = rand(0, $lowerCaseLength);
+          $nuovaPassword .= substr($permittedLowerCase, $newRandom, 1);
+          };
+        } else if ($chooseGroupPermitted == 2) {
+          if ($_SESSION['up']) {
+          $newRandom = rand(0, $upperCaseLength);
+          $nuovaPassword .= substr($permittedUpperCase, $newRandom, 1);
+          };
+        }  else if ($chooseGroupPermitted == 3) {
+          if ($_SESSION['sym']) {
+          $newRandom = rand(0, $symbolsLength);
+          $nuovaPassword .= substr($permittedSymbols, $newRandom, 1);
+          };
+        };
       };
-      
     };
     return $nuovaPassword;
   };
